@@ -1,40 +1,91 @@
-// Место для первой задачи
+/* Задание на урок:
 
-function sayHello(name) {
-	return `Привет, ${name}!`;
-}
-console.log(sayHello('Антон'));
-// Место для второй задачи
-function returnNeighboringNumbers(num) {
-	return [num - 1, num, num + 1];
-}
-console.log(returnNeighboringNumbers(4));
-// Место для третьей задачи
-function getMathResult(one, two) {
-	let result = one;
-	for(let i = 0, m = 2; i < two - 1; i++){
-		if(two <= 0 || typeof(two) != 'number'){
-			return one;
-		}
-		result +='---' + one * m;
-		m++;
+1) Первую часть задания повторить по уроку
+
+2) Создать функцию showMyDB, которая будет проверять свойство privat. Если стоит в позиции
+false - выводит в консоль главный объект программы
+
+3) Создать функцию writeYourGenres в которой пользователь будет 3 раза отвечать на вопрос 
+"Ваш любимый жанр под номером ${номер по порядку}". Каждый ответ записывается в массив данных
+genres
+
+P.S. Функции вызывать не обязательно*/
+
+'use strict';
+
+let numberOfFilms;
+
+// selfshitcode^^
+
+// function valid(prompt , type){
+// 	if (prompt == '' || prompt == null || typeof(prompt) != type || prompt.lenght > 50 ){
+// 		//continue valid;
+// 		//:(((((
+// 	}
+// }
+
+function start() {
+	valid: numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+
+	while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)){
+		numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
 	}
-	return result;
 }
 
-console.log(getMathResult(10, 3));
+start();
+
+const personalMovieDB = {
+	count: numberOfFilms,
+	movies: {},
+	actors: {},
+	genres: [],
+	private: false
+};
+
+function rememberMyFilms(){
+	for (let i = 0; i < 2; i++) {
+		const a = prompt('Один из последних просмотренных фильмов?', ''),
+			  b = prompt('На сколько оцените его?', '');
+		personalMovieDB.movies[a] = b;
+		if (a != null && b !=null && a != '' && b != '' && a.length < 50){
+			console.log('done!');
+		} else {
+			console.log('error!');
+			i--;
+		}	
+	}
+}
+
+// rememberMyFilms();
+
+function writeMyGenres(){
+	for (let i = 1; i <= 3; i++){
+		personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}:`, '');
+	}
+}
+
+writeMyGenres();
 
 
-console.log(typeof('2'));
+function detectPersonalLevel(){
+	if(personalMovieDB.count < 10){
+		alert('Просмотрено довольно мало фильмов.');
+	}	else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30){
+		alert('Вы классический зритель.');
+	} else if(personalMovieDB.count >= 30){
+		alert('Вы киноман.');
+	} else {
+		console.log('Произошла ошибка.');
+	}
+}
 
-// Вызов функции getMathResult(5, 3) даст ответ 5---10---15
+// detectPersonalLevel();
 
-// Вызов функции getMathResult(3, 10) даст ответ 3---6---9---12---15---18---21---24---27---30
-
-// Вызов функции getMathResult(10, 5) даст ответ 10---20---30---40---50
-
-// Вызов функции getMathResult(10, '5') даст ответ 10
-
-// Вызов функции getMathResult(10, 0) даст ответ 10
-
-// Вызов функции getMathResult(20, -5) даст ответ 20
+function showMyDB(hidden){
+	if (!hidden){
+		console.log(personalMovieDB);
+	}	else {
+		console.log('Access error!');
+	}
+}
+showMyDB(personalMovieDB.private);
