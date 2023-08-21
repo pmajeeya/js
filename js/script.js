@@ -90,53 +90,41 @@ function showMyDB(hidden){
 }
 showMyDB(personalMovieDB.private);
 
+///////////////
 
 
 
-
-/////
-
-// V=a^3
-// A=6a^2
-
-
-
-function calculateVolumeAndArea(edge){
-	cubeArea = 6 * (edge * edge);
-	cubeVolume = edge * edge * edge;
-	if (edge <= 0 || isNaN(edge) === true || edge %1 !== 0){
-		return 'При вычислении произошла ошибка';
-	}
-	return `volume of cube ${cubeVolume}, area - ${cubeArea}`;
-	`Объем куба: ${cubeVolume}, площадь всей поверхности: ${cubeArea}`;
-}
-
-console.log(calculateVolumeAndArea(12.8986433395));
-
-
-function getCoupeNumber(ticket) {
-	if(ticket === 0 || ticket > 36){
-		return 'Таких мест в вагоне не существует';
-	} else if(isNaN(ticket) || ticket %1 !== 0 || ticket < 0){
-		return 'Ошибка. Проверьте правильность введенного номера места';
+function getTimeFromMinutes(minc){
+	let hr = Math.trunc(minc / 60),
+		min = (minc % 60),
+		hrDecl;
+	if(hr === 1){
+		hrDecl = 'час';
+	} else if(hr > 1 && hr <= 4){
+		hrDecl = 'часа';
 	} else {
-		return Math.ceil(ticket / 4);
+		hrDecl = 'часов';
+	}
+	if(isNaN(minc) === true || minc < 0 || minc %1 !== 0/*|| minc > 600*/){
+		return 'Ошибка, проверьте данные';
+	} else {
+		return `Это ${hr} ${hrDecl} и ${min} минут`;
 	}
 }
-console.log(getCoupeNumber('hello'));
 
-/*
-  => 9
+// Место для второй задачи
 
-getCoupeNumber(7)  => 2
-
-getCoupeNumber(300)  => "Таких мест в вагоне не существует"
-
-getCoupeNumber(0)  => "Таких мест в вагоне не существует"
-
-getCoupeNumber(7.7)  => "Ошибка. Проверьте правильность введенного номера места"
-
-getCoupeNumber(-10)  => "Ошибка. Проверьте правильность введенного номера места"
-
-getCoupeNumber('Hello')  => "Ошибка. Проверьте правильность введенного номера места"
-*/
+function findMaxNumber(one, two, three, four) {
+	let result = Math.max(one, two, three, four),
+		valid;
+	for(let i = 0; i < 4; i++){
+		if (typeof(arguments[i]) === 'number'){
+			valid = true;
+		} else {
+			valid = false;
+			return 0;
+		}
+		// console.log(arguments[i] + ' is ' + valid);
+	}
+	return result;
+}
