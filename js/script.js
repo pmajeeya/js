@@ -94,37 +94,27 @@ showMyDB(personalMovieDB.private);
 
 
 
-function getTimeFromMinutes(minc){
-	let hr = Math.trunc(minc / 60),
-		min = (minc % 60),
-		hrDecl;
-	if(hr === 1){
-		hrDecl = 'час';
-	} else if(hr > 1 && hr <= 4){
-		hrDecl = 'часа';
-	} else {
-		hrDecl = 'часов';
-	}
-	if(isNaN(minc) === true || minc < 0 || minc %1 !== 0/*|| minc > 600*/){
-		return 'Ошибка, проверьте данные';
-	} else {
-		return `Это ${hr} ${hrDecl} и ${min} минут`;
-	}
-}
-
-// Место для второй задачи
-
-function findMaxNumber(one, two, three, four) {
-	let result = Math.max(one, two, three, four),
-		valid;
-	for(let i = 0; i < 4; i++){
-		if (typeof(arguments[i]) === 'number'){
-			valid = true;
-		} else {
-			valid = false;
-			return 0;
+function fib(arg){
+	let result = '',
+		fib = [0, 1],
+		fibc = 1,
+		fibcp = 0,
+		i = 0;
+	if(typeof(arg) === 'number'){
+		while (i < arg){
+			let fibn = fibc + fibcp;   
+			fibcp = fibc;
+			fibc = fibn;
+			if(i != 0) {
+				result += ` ${fibc}`;
+				// console.log(`${fibc} + ${fibcp} + ${fibn} test`);
+			} else{ 
+				fibc = 0;
+				result += `${fibc}`;
+			}
+			i++;
 		}
-		// console.log(arguments[i] + ' is ' + valid);
-	}
-	return result;
+		return result;
+	} else return '';
 }
+console.log(fib(1));
