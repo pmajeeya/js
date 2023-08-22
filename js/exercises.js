@@ -199,3 +199,109 @@ function fib(arg){
 	} else return '';
 }
 console.log(fib(1));
+
+
+
+
+
+
+
+//////////////////////
+
+//ES9
+
+// const personalPlanPeter = {
+// 	name: 'Peter',
+// 	age: '29',
+// 	skills: {
+// 		languages: ['ru', 'eng'],
+// 		programmingLangs: {
+// 			js: '20%',
+// 			php: '10%',
+// 		},
+// 		exp: '1 month'
+// 	},
+// 	showAgeAndLangs: function(plan){
+// 		const {
+// 			skills: {
+// 				languages: [...langs]
+// 			}
+// 		} = plan;
+// 		let result = '';
+// 		for(let key of langs){
+// 			result += `${key} `;
+// 		}
+// 		console.log(`Мне ${plan.age} лет и я владею языками: ${(result.toUpperCase()).trim()}`);
+// 	}
+// };
+// // personalPlanPeter.showAgeAndLangs(personalPlanPeter);
+
+// function showExperience(plan) {
+// 	let {
+// 		skills: {
+// 			exp,
+// 			programmingLangs: {
+// 				...langs
+// 			}
+// 		}} = plan;
+// 	console.log(exp);
+// }
+
+// // showExperience(personalPlanPeter);
+
+// function showProgrammingLangs(plan) {
+// 	const {
+// 		skills: {
+// 			programmingLangs: {
+// 				...langs
+// 			} 
+// 		}
+// 	} = plan;
+// 	let result = '';
+// 	for(let key in langs){
+// 		result += `Язык ${key} изучен на ${langs[key]} \n`;
+// 	}
+// 	console.log(result);
+// }
+
+// showProgrammingLangs(personalPlanPeter);
+
+//ES6, stolen solution
+
+
+const personalPlanPeter = {
+	name: 'Peter',
+	age: '29',
+	skills: {
+		languages: ['ru', 'eng'],
+		programmingLangs: {
+			js: '20%',
+			php: '10%'
+		},
+		exp: '1 month'
+	},
+	showAgeAndLangs: function(obj = this){
+		const {age, skills:{languages}} = obj;
+		let result = '';
+		for(let key of languages){
+			result += `${key} `;
+		}
+		return `Мне ${age} лет и я владею языками: ${(result.toUpperCase()).trim()}`;
+	}
+};
+console.log(personalPlanPeter.showAgeAndLangs());
+
+function showExperience(plan) {
+	let {skills: {exp}} = plan;
+	return exp;
+}
+
+function showProgrammingLangs(plan) {
+	let {skills: {programmingLangs}} = plan;
+	let result = '';
+	for(let key in programmingLangs){
+		result += `Язык ${key} изучен на ${programmingLangs[key]}\n`;
+	}
+	return result;
+}
+console.log(showProgrammingLangs(personalPlanPeter));
