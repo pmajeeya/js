@@ -44,7 +44,7 @@ const personalMovieDB = {
 
 function rememberMyFilms(){
 	for (let i = 0; i < 2; i++) {
-		const a = prompt('Один из последних просмотренных фильмов?', ''),
+		const a = prompt('Один из последних просмотренных фильмов?', '').trim(),
 			  b = prompt('На сколько оцените его?', '');
 		personalMovieDB.movies[a] = b;
 		if (a != null && b !=null && a != '' && b != '' && a.length < 50){
@@ -91,30 +91,3 @@ function showMyDB(hidden){
 showMyDB(personalMovieDB.private);
 
 ///////////////
-
-
-
-function fib(arg){
-	let result = '',
-		fib = [0, 1],
-		fibc = 1,
-		fibcp = 0,
-		i = 0;
-	if(typeof(arg) === 'number'){
-		while (i < arg){
-			let fibn = fibc + fibcp;   
-			fibcp = fibc;
-			fibc = fibn;
-			if(i != 0) {
-				result += ` ${fibc}`;
-				// console.log(`${fibc} + ${fibcp} + ${fibn} test`);
-			} else{ 
-				fibc = 0;
-				result += `${fibc}`;
-			}
-			i++;
-		}
-		return result;
-	} else return '';
-}
-console.log(fib(1));
