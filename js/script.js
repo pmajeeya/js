@@ -55,9 +55,13 @@ const personalMovieDB = {
 	},
 	writeMyGenres: function(obj = this){
 		for (let i = 1; i <= 3; i++){
-			obj.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}:`, '');
+			obj.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}:`, '').trim();
+			if(obj.genres[i - 1] == null || obj.genres[i - 1] == ''){
+				i--;
+				console.log('invalid genre.');
+			}
 		};
-		obj.genres.forEach((m) => console.log(`Любимый жанр #${ind} - это (название из массива)`));
+		obj.genres.forEach((m) => console.log(`Любимый жанр #${obj.genres.indexOf(m) + 1} - это ${m}`));
 	},
 	detectPersonalLevel: function(obj = this){
 		if(obj.count < 10){
