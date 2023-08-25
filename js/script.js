@@ -14,7 +14,6 @@
 
 'use strict';
 
-let numberOfFilms;
 
 // selfshitcode^^
 
@@ -29,7 +28,7 @@ let numberOfFilms;
 
 
 const personalMovieDB = {
-	// count: numberOfFilms,
+	count: 0,
 	movies: {},
 	actors: {},
 	genres: [],
