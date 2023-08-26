@@ -410,3 +410,33 @@ function isBudgetEnough(data) {
 }
 
 console.log(isBudgetEnough(shoppingMallData));
+
+
+/////
+
+const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam'];
+
+function sortStudentsByGroups(arr) {
+	let arrSorted = arr.sort().slice(),
+		result = [
+			[],
+			[],
+			[],
+			'Оставшиеся студенты: '
+		];
+	// console.log(arrSorted);
+	for (let i = 0; i < 3; i++){
+		while(result[i].length < 3){
+			result[i].push(arrSorted[0]);
+			arrSorted.shift();
+		}
+	}
+	// console.log(arrSorted);
+	if(arrSorted.length != 0){
+		result[result.length - 1] += arrSorted.join(', ');
+	} else result[result.length - 1] += '-';
+	return result;
+	// console.log(arrSorted);
+}
+
+sortStudentsByGroups(students);
