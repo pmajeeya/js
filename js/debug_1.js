@@ -46,9 +46,8 @@ console.log(isAverageLunchPriceTrue(restorantData.menu[0], restorantData.menu[1]
 function transferWaitors(data) {
 	const copy = Object.assign({}, data);
 
-	copy.waitors[0] = {name: 'Mike', age: 32};
-	debugger;
+	copy.waitors = [{name: 'Mike', age: 32}];
 	return copy;
 }
 
-transferWaitors(restorantData);
+console.log(transferWaitors(restorantData));
