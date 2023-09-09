@@ -440,3 +440,23 @@ function sortStudentsByGroups(arr) {
 }
 
 sortStudentsByGroups(students);
+
+///////// RECURSION
+
+
+
+
+
+function factorial(n){
+	if(Number.isInteger(n) && n % 1 == 0){
+		if(n <= 0) {
+			return 1;
+		} else {
+			return n * factorial(n - 1);
+		}
+	} else {
+		return 'Invalid value.';
+	}
+};
+
+console.log(factorial(5.2));
