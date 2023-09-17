@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // 
 
   class MenuCard {
-    constructor(src, alt, title, descr, price, parentSelector, ...classes) {
+    constructor(src, alt, title, descr, price, parentSelector = ".menu .container", ...classes) {
       this.title = title;
       this.descr = descr;
       this.price = price;
       this.src = src;
       this.alt = alt;
-      this.parent = document.querySelector(parentSelector) || document.querySelector('.menu .container');
+      this.parent = document.querySelector(parentSelector);
       this.classes = classes;
       this.rate = 9;
       this.changeToUAH();
@@ -169,6 +169,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+const forms = document.querySelectorAll('form');
+const message = {
+  loading: 'Loading...',
+  success: "Thank you, we'll contact you soon!",
+  failure: 'Something went wrong..)'
+};
+forms.forEach(item => {
+  postData(item);
+});
+function postData(form) {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const statusMessage = document.createElement('div');
+    statusMessage.classList.add('status');
+    statusMessage.textContent = message.loading;
+    form.append(statusMessage);
+    const request = new XMLHttpRequest();
+    request.open('POST', 'server.php');
+    request.setRequestHeader('Content-type', 'application/json');
+    const formData = new FormData(form);
+    const object = {};
+    formData.forEach(function (value, key) {
+      object[key] = value;
+    });
+    const json = JSON.stringify(object);
+    request.send(json);
+    request.addEventListener('load', () => {
+      if (request.status === 200) {
+        console.log(request.response);
+        statusMessage.textContent = message.success;
+      } else {
+        console.log(message.failure);
+        statusMessage.textContent = message.failure;
+      }
+      setTimeout(() => {
+        statusMessage.remove();
+      }, 2000);
+    });
+  });
+}
 /******/ })()
 ;
 //# sourceMappingURL=script.js.map
