@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 
 
   class MenuCard {
-    constructor(src, alt, title, descr, price, parentSelector = ".menu .container", ...classes) {
+    constructor(src, alt, title, descr, price, parentSelector = '.menu .container', ...classes) {
       this.title = title;
       this.descr = descr;
       this.price = price;
@@ -30,25 +30,25 @@ document.addEventListener('DOMContentLoaded', () => {
     render() {
       const element = document.createElement('div');
       if (this.classes.length === 0) {
-        this.classes = "menu__item";
+        this.classes = 'menu__item';
         element.classList.add(this.classes);
       } else {
         this.classes.forEach(className => element.classList.add(className));
       }
       element.innerHTML = `
-                <img src="${this.src}" alt="${this.alt}">
-                <h3 class="menu__item-subtitle">${this.title}</h3>
-                <div class="menu__item-descr">${this.descr}</div>
-                <div class="menu__item-divider"></div>
-                <div class="menu__item-price">
-                    <div class="menu__item-cost">Цена:</div>
-                    <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
-                </div>
-                `;
+            <img src="${this.src}" alt="${this.alt}">
+            <h3 class="menu__item-subtitle">${this.title}</h3>
+            <div class="menu__item-descr">${this.descr}</div>
+            <div class="menu__item-divider"></div>
+            <div class="menu__item-price">
+                <div class="menu__item-cost">Цена:</div>
+                <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+            </div>
+            `;
       this.parent.append(element);
     }
   }
-  new MenuCard('img/tabs/vegy.jpg', 'vegy', 'Меню "Фитнес"', 'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 23, ".menu .container").render();
+  new MenuCard('img/tabs/vegy.jpg', 'vegy', 'Меню "Фитнес"', 'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!', 23, '.menu .container').render();
   new MenuCard('img/tabs/elite.jpg', 'elite', 'Меню “Премиум”', 'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!', 61, '.menu .container').render();
   new MenuCard('img/tabs/post.jpg', 'post', 'Меню "Постное"', 'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков..', 47).render();
 
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const forms = document.querySelectorAll('form');
   const message = {
     loading: 'img/form/spinner.svg',
-    success: "Спасибо, мы скоро свяжемся с вами!",
+    success: 'Спасибо, мы скоро свяжемся с вами!',
     failure: 'Что-то пошло не так...)'
   };
   openModalBtn.forEach(btn => {
@@ -95,15 +95,25 @@ document.addEventListener('DOMContentLoaded', () => {
   forms.forEach(item => {
     postData(item);
   });
-  function postData(form) {
+  const postData = async (url, data) => {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'applictaion/json'
+      },
+      body: data
+    });
+    return await res.json();
+  };
+  function bindPostData(form) {
     form.addEventListener('submit', e => {
       e.preventDefault();
       const statusMessage = document.createElement('img');
       statusMessage.src = message.loading; //
       statusMessage.style.cssText = `
-            display: block;
-            margin: 0 auto;
-        `;
+        display: block;
+        margin: 0 auto;
+    `;
       form.insertAdjacentElement('afterend', statusMessage);
       const formData = new FormData(form);
       const object = {};
@@ -136,11 +146,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const thanksModal = document.createElement('div');
     thanksModal.classList.add('modal__dialog');
     thanksModal.innerHTML = `
-    <div class='modal__content'>
-    <div class='modal__close' data-close>&times</div>
-    <div class='modal__title'>${message}</div>
-    </div>
-    `;
+            <div class='modal__content'>
+            <div class='modal__close' data-close>&times</div>
+            <div class='modal__title'>${message}</div>
+            </div>
+            `;
     modal.append(thanksModal);
     const thanksModalTimer = setTimeout(() => {
       thanksModal.remove();
@@ -231,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+  fetch('http://localhost:3000/menu').then(data => data.json()).then(res => console.log(res));
 });
 /******/ })()
 ;
