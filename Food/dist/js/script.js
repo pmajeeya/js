@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       element.innerHTML = `
                 <img src="${this.src}" alt="${this.alt}">
-                <h3 class="menu__item-subtitle">“${this.title}”</h3>
+                <h3 class="menu__item-subtitle">${this.title}</h3>
                 <div class="menu__item-descr">${this.descr}</div>
                 <div class="menu__item-divider"></div>
                 <div class="menu__item-price">
@@ -105,29 +105,26 @@ document.addEventListener('DOMContentLoaded', () => {
             margin: 0 auto;
         `;
       form.insertAdjacentElement('afterend', statusMessage);
-      const request = new XMLHttpRequest();
-      request.open('POST', 'server.php');
-      request.setRequestHeader('Content-type', 'application/json');
       const formData = new FormData(form);
       const object = {};
       formData.forEach(function (value, key) {
         object[key] = value;
       });
-      const json = JSON.stringify(object);
-      request.send(json);
-      request.addEventListener('load', () => {
-        // prevModal.style.cssText = `display: none;`
-        if (request.status === 200) {
-          console.log(request.response);
-          showThanksModal(message.success);
-          statusMessage.remove();
-        } else {
-          console.log(message.failure);
-          showThanksModal(message.failure);
-        }
-        setTimeout(() => {
-          form.reset();
-        }, 2000);
+      fetch('server.php', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'applictaion/json'
+        },
+        body: JSON.stringify(object)
+      }).then(data => data.text()).then(data => {
+        console.log(data);
+        showThanksModal(message.success);
+        statusMessage.remove();
+      }).catch(() => {
+        console.log(message.failure);
+        showThanksModal(message.failure);
+      }).finally(() => {
+        form.reset;
       });
     });
   }
