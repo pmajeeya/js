@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	modal.addEventListener('click', (e) => {
 		if (e.target === modal || e.target.getAttribute('data-close') == '') {
-			modal.style.display = 'none';
+			modal.classList.remove('fadeToggle');
 			document.body.style.overflow = '';
 		}
 
@@ -295,4 +295,42 @@ document.addEventListener('DOMContentLoaded', () => {
 	fetch('http://localhost:3000/menu')
 		.then(data => data.json())
 		.then(res => console.log(res));
+
+
+
+	//// slider 
+
+	function sliderProcess(){
+		const slider = document.querySelector('.offer__slider'),
+			  sliderPictures = slider.querySelectorAll('.offer__slide'),
+			  sliderCounterTotal = slider.querySelector('#total'),
+			  sliderPrev = slider.querySelector('.offer__slider-prev'),
+			  sliderNext = slider.querySelector('.offer__slider-next');
+		let   sliderCounterСurrent = slider.querySelector('#current');
+
+		console.log(sliderPictures);
+
+		let current = sliderCounterСurrent.innerHTML,
+			total = sliderCounterTotal.innerHTML;
+
+		total = sliderPictures.length + 1;
+		
+		slider.addEventListener('click', (e) => {
+			if(e.target === sliderPrev){
+				current -= 1; 
+				if(sliderCounterСurrent <= 0) sliderCounterСurrent = total;
+				console.log(e.target.classList);
+				e.target.classList.remove('fadeToggle');
+				// sliderPictures[current].classList.add('fadeToggle');
+				console.dir(sliderPictures[current].classList);
+			}
+			if(e.target === sliderNext){
+				current += 1;
+				if(sliderCounterСurrent <= 0) sliderCounterСurrent = total;
+				e.target.classList.remove('fadeToggle');
+				sliderPictures[current].classList.add('fadeToggle');
+			}
+		});
+	};
+	sliderProcess();
 });
