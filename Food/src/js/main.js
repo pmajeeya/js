@@ -299,38 +299,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 	//// slider 
+	const slider = document.querySelector('.offer__slider'),
+		  sliderPictures = slider.querySelectorAll('.offer__slide'),
+		  sliderCounterTotal = slider.querySelector('#total'),
+		  sliderPrev = slider.querySelector('.offer__slider-prev'),
+		  sliderNext = slider.querySelector('.offer__slider-next');
+	let   sliderCounterCurrent = slider.querySelector('#current');
+	let current = 1,
+		total = sliderPictures.length;
 
 	function sliderProcess(){
-		const slider = document.querySelector('.offer__slider'),
-			  sliderPictures = slider.querySelectorAll('.offer__slide'),
-			  sliderCounterTotal = slider.querySelector('#total'),
-			  sliderPrev = slider.querySelector('.offer__slider-prev'),
-			  sliderNext = slider.querySelector('.offer__slider-next');
-		let   sliderCounterСurrent = slider.querySelector('#current');
 
 		console.log(sliderPictures);
 
-		let current = sliderCounterСurrent.innerHTML,
-			total = sliderCounterTotal.innerHTML;
 
-		total = sliderPictures.length + 1;
+		total = sliderPictures.length;
+		sliderCounterTotal.innerHTML = addZero(total);
+
 		
-		slider.addEventListener('click', (e) => {
-			if(e.target === sliderPrev){
-				current -= 1; 
-				if(sliderCounterСurrent <= 0) sliderCounterСurrent = total;
-				console.log(e.target.classList);
-				e.target.classList.remove('fadeToggle');
-				// sliderPictures[current].classList.add('fadeToggle');
-				console.dir(sliderPictures[current].classList);
-			}
-			if(e.target === sliderNext){
-				current += 1;
-				if(sliderCounterСurrent <= 0) sliderCounterСurrent = total;
-				e.target.classList.remove('fadeToggle');
-				sliderPictures[current].classList.add('fadeToggle');
-			}
+		console.log(sliderPictures[2]);
+		// slider.addEventListener('click', (e) => {
+		// 	// if(e.target === sliderPrev){
+		// 	// 	current -= 1; 
+		// 	// 	if(sliderCounterСurrent <= 0) sliderCounterСurrent = total;
+		// 	// 	console.log(e.target.classList);
+		// 	// 	e.target.classList.remove('fadeToggle');
+		// 	// 	// sliderPictures[current].classList.add('fadeToggle');
+		// 	// 	console.dir(sliderPictures[current].classList);
+		// 	// }
+		// 	// if(e.target === sliderNext){
+		// 	// 	current += 1;
+		// 	// 	if(sliderCounterСurrent <= 0) sliderCounterСurrent = total;
+		// 	// 	e.target.classList.remove('fadeToggle');
+		// 	// 	sliderPictures[current].classList.add('fadeToggle');
+		// 	// }
+		// });
+
+		sliderPrev.addEventListener('click', (e) => {
+			slideShow(-1);
 		});
+		sliderNext.addEventListener('click', (e) => {
+			slideShow(1);
+		});
+
+		function slideCount(n) {
+			current += n;
+			if (current > sliderPictures.length) {
+				current = 1;
+			} else if(current <= 0) {
+				current = total;
+			};
+			// console.log('current is calculated.');
+			sliderCounterCurrent.innerHTML = addZero(current);
+		}
+
+		function slideShow(n) {
+			slideCount(n);
+			sliderPictures.forEach((slide) => {
+				slide.classList.remove('fadeToggle');
+			});
+			sliderPictures[current - 1].classList.add('fadeToggle');
+			console.log(`shown ${current} slide.`);
+		}		
+
+		function addZero(n) {
+			if (n < 10) return `0${n}`;
+		}
 	};
 	sliderProcess();
 });
