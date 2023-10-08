@@ -363,6 +363,59 @@ document.addEventListener('DOMContentLoaded', () => {
     // function addZero(n) {
     // 	if (n < 10) return `0${n}`;
     // }
+
+    //navigation self )
+
+    slider.style.position = 'relative';
+    const dotsCont = document.createElement('div');
+    let dots = slider.querySelectorAll('.dot');
+    slider.appendChild(dotsCont);
+    dotsCont.classList.add('carousel-indicators');
+    while (dots.length < sliderPictures.length - 1) {
+      dots = slider.querySelectorAll('.dot');
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      console.log(`i've done ${dot}`);
+      dotsCont.append(dot);
+    }
+    console.log(dots);
+    const dotsArray = Array.from(dotsCont.querySelectorAll('.dot'));
+    dotsArray.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        index = 1 + i;
+        current = index;
+        console.log('i = ' + i);
+        if (i > total) {
+          current = 1;
+        }
+        offset = current * width - 650;
+        sliderInner.style.transform = `translateX(${-offset}px)`;
+        console.log(`shown ${current} slide.`);
+        sliderCounterCurrent.innerHTML = addZero(current);
+      });
+    });
+    //
+    // slider.style.position = 'relative';
+    // const dotsCont = document.createElement('div');
+    // let dots = slider.querySelectorAll('.dot').length;
+    // slider.appendChild(dotsCont);
+    // dotsCont.classList.add('carousel-indicators');
+
+    // while (dots < sliderPictures.length) {
+    // 	const dot = document.createElement('div');
+    // 	dot.classList.add('dot');
+    // 	dots++;
+    // 	dotsCont.appendChild(dot);
+    // }
+
+    // const dotsArray = Array.from(dotsCont.querySelectorAll('.dot'));
+    // dotsArray.forEach((dot, i) => {
+    // dot.addEventListener('click', () => {
+    // 	current = i;
+    // 	offset = current * width - 650;
+    // 	sliderInner.style.transform = `translateX(${-offset}px)`;
+    // });
+    // });
   }
 
   ;
