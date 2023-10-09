@@ -367,17 +367,18 @@ document.addEventListener('DOMContentLoaded', () => {
     //navigation self )
 
     slider.style.position = 'relative';
-    const dotsCont = document.createElement('div');
+    const dotsCont = document.createElement('ol');
     let dots = slider.querySelectorAll('.dot');
     slider.appendChild(dotsCont);
     dotsCont.classList.add('carousel-indicators');
     while (dots.length < sliderPictures.length - 1) {
       dots = slider.querySelectorAll('.dot');
-      const dot = document.createElement('div');
+      const dot = document.createElement('li');
       dot.classList.add('dot');
       console.log(`i've done ${dot}`);
       dotsCont.append(dot);
     }
+    dots[current - 1].style.opacity = 1;
     console.log(dots);
     const dotsArray = Array.from(dotsCont.querySelectorAll('.dot'));
     dotsArray.forEach((dot, i) => {
@@ -390,10 +391,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         offset = current * width - 650;
         sliderInner.style.transform = `translateX(${-offset}px)`;
+        dotsArray.forEach(dot => dot.style.opacity = .5);
+        dot.style.opacity = 1;
         console.log(`shown ${current} slide.`);
         sliderCounterCurrent.innerHTML = addZero(current);
       });
     });
+
     //
     // slider.style.position = 'relative';
     // const dotsCont = document.createElement('div');
